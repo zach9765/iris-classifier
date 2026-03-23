@@ -29,8 +29,10 @@ iris-classifier/
 ├── src/
 │   └── train.py              # CLI training script
 ├── outputs/                   # Generated at runtime
+│   ├── model.joblib
 │   └── confusion_matrix.png
-├── iris_classifier.ipynb      # Original Jupyter notebook
+├── notebooks/
+│   └── iris_classifier.ipynb  # Jupyter notebook
 ├── requirements.txt
 ├── LICENSE
 └── README.md

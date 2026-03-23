@@ -1,6 +1,7 @@
 import argparse
 import os
 
+import joblib
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -31,6 +32,15 @@ def main():
     clf = DecisionTreeClassifier(random_state=args.random_state, max_depth=5)
     clf.fit(X_train, y_train)
 
+    # Create outputs directory
+    out_dir = os.path.join(os.path.dirname(__file__), os.pardir, "outputs")
+    os.makedirs(out_dir, exist_ok=True)
+
+    # Save trained model
+    model_path = os.path.join(out_dir, "model.joblib")
+    joblib.dump(clf, model_path)
+    print(f"\nModel saved to {model_path}")
+
     # Predict & evaluate
     y_pred = clf.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
@@ -41,8 +51,6 @@ def main():
     print(cm)
 
     # Save confusion-matrix figure
-    out_dir = os.path.join(os.path.dirname(__file__), os.pardir, "outputs")
-    os.makedirs(out_dir, exist_ok=True)
 
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
